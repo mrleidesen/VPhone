@@ -22,7 +22,7 @@
       }"
       class="system-bar-mask"
       :class="{'system-bar-mask--dragging': isDragging, 'system-bar-mask--active': isDown}"
-      :style="`bottom: ${offset}px`"
+      :style="`transform: translateY(${offset}px)`"
     ></div>
   </v-system-bar>
 </template>
@@ -71,15 +71,19 @@ export default {
       const { offset } = this
       const maxHeight = document.body.offsetHeight - 25
       const touchEndChangeOffset = e.touchstartY - e.touchmoveY
-      
+
       if (touchEndChangeOffset < 0) {
         // down
-        if (offset !== -(maxHeight)) {
-          this.offset = -e.touchmoveY
+        if (offset < maxHeight) {
+          this.offset = e.touchmoveY
+        } else {
+          this.offset = maxHeight
         }
       } else {
         // up
-        this.offset = -(maxHeight) + touchEndChangeOffset
+        if (offset > 0) {
+          this.offset = maxHeight - touchEndChangeOffset
+        }
       }
     },
     onTouchEnd(e) {
@@ -87,9 +91,9 @@ export default {
       const maxHeight = document.body.offsetHeight - 25
       const touchEndChangeOffset = e.touchstartY - e.touchendY
 
-      if (e.touchmoveY >= 80 && touchEndChangeOffset <= 0) {
-        this.offset = -(maxHeight)
-        this.lastEndOffset = -(maxHeight)
+      if (touchEndChangeOffset <= -80) {
+        this.offset = maxHeight
+        this.lastEndOffset = maxHeight
         this.isDown = true
       } else if (e.touchstartY - e.touchendY >= 80) {
         this.offset = 0
@@ -97,7 +101,7 @@ export default {
         this.isDown = false
       } else {
         this.offset = this.lastEndOffset
-        this.isDown = this.lastEndOffset === -(maxHeight)
+        this.isDown = this.lastEndOffset === maxHeight
       }
     },
   },
@@ -118,7 +122,8 @@ export default {
     width: 100%;
     height: 100vh;
     opacity: 0;
-    transition: bottom .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
+    transform: translateY(0);
+    transition: transform .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
     user-select: none;
 
     &:active {
@@ -129,7 +134,7 @@ export default {
     &--dragging {
       opacity: .5;
       background-color: #000;
-      transition: bottom 0s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out !important;
+      transition: transform 0s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out !important;
     }
 
     &--active {

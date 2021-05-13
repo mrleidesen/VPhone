@@ -33,4 +33,8 @@ export default {
 .isDesktop {
   background: url('./assets/bg.png') center/cover;
 }
+
+html {
+  overflow-y: auto !important;
+}
 </style>
