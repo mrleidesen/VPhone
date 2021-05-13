@@ -5,6 +5,7 @@
     lights-out
     dark
     fixed
+    class="system-bar"
   >
     <span>{{ formatTime }}</span>
 
@@ -13,6 +14,8 @@
     <v-icon size="small">mdi-wifi-strength-4</v-icon>
     <v-icon size="small">mdi-signal-cellular-outline</v-icon>
     <v-icon size="small">mdi-battery</v-icon>
+
+    <div class="system-bar-mask"></div>
   </v-system-bar>
 </template>
 
@@ -56,3 +59,18 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.system-bar {
+
+  &-mask {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: teal;
+    opacity: 0;
+  }
+}
+</style>
