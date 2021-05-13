@@ -15,7 +15,15 @@
     <v-icon size="small">mdi-signal-cellular-outline</v-icon>
     <v-icon size="small">mdi-battery</v-icon>
 
-    <div class="system-bar-mask"></div>
+    <div 
+      v-touch="{
+        move: onTouchMove,
+        end: onTouchEnd
+      }"
+      class="system-bar-mask"
+      :class="{'system-bar-mask--dragging': isDragging, 'system-bar-mask--active': isDown}"
+      :style="`bottom: ${offset}px`"
+    ></div>
   </v-system-bar>
 </template>
 
@@ -28,7 +36,11 @@ export default {
   data() {
     return {
       formatTime: dayjs().format('HH:mm'),
-      timer: null
+      timer: null,
+      offset: 0,
+      isDragging: false,
+      isDown: false,
+      lastEndOffset: 0
     }
   },
 
@@ -52,6 +64,42 @@ export default {
         this.timer = null
       }
     },
+
+    onTouchMove(e) {
+      this.isDragging = true
+      this.isDown = false
+      const { offset } = this
+      const maxHeight = document.body.offsetHeight - 25
+      const touchEndChangeOffset = e.touchstartY - e.touchmoveY
+      console.log(e)
+      if (touchEndChangeOffset < 0) {
+        // down
+        if (offset !== -(maxHeight)) {
+          this.offset = -e.touchmoveY
+        }
+      } else {
+        // up
+        this.offset = -(maxHeight) + touchEndChangeOffset
+      }
+    },
+    onTouchEnd(e) {
+      this.isDragging = false
+      const maxHeight = document.body.offsetHeight - 25
+      const touchEndChangeOffset = e.touchstartY - e.touchendY
+
+      if (e.touchmoveY >= 80 && touchEndChangeOffset <= 0) {
+        this.offset = -(maxHeight)
+        this.lastEndOffset = -(maxHeight)
+        this.isDown = true
+      } else if (e.touchstartY - e.touchendY >= 80) {
+        this.offset = 0
+        this.lastEndOffset = 0
+        this.isDown = false
+      } else {
+        this.offset = this.lastEndOffset
+        this.isDown = this.lastEndOffset === -(maxHeight)
+      }
+    },
   },
 
   destroyed() {
@@ -69,8 +117,25 @@ export default {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: teal;
     opacity: 0;
+    transition: bottom .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
+    user-select: none;
+
+    &:active {
+      background-color: #000;
+      opacity: .2;
+    }
+
+    &--dragging {
+      opacity: .5;
+      background-color: #000;
+      transition: bottom 0s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out !important;
+    }
+
+    &--active {
+      opacity: .7;
+      background-color: #000;
+    }
   }
 }
 </style>
