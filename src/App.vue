@@ -2,7 +2,7 @@
   <v-app>
     <system-bar></system-bar>
 
-    <v-main>
+    <v-main :class="{'isDesktop': isDesktop}">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -15,6 +15,22 @@ export default {
 
   components: {
     SystemBar
-  }
-};
+  },
+
+  data: () => ({
+    isDesktop: true
+  }),
+
+  watch: {
+    $route(newVal) {
+      this.isDesktop = (newVal.name === 'Desktop')
+    }
+  },
+}
 </script>
+
+<style lang="less">
+.isDesktop {
+  background: url('./assets/bg.png') center/cover;
+}
+</style>
