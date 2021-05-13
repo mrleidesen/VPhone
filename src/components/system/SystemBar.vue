@@ -71,7 +71,7 @@ export default {
       const { offset } = this
       const maxHeight = document.body.offsetHeight - 25
       const touchEndChangeOffset = e.touchstartY - e.touchmoveY
-      console.log(e)
+      
       if (touchEndChangeOffset < 0) {
         // down
         if (offset !== -(maxHeight)) {
