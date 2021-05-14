@@ -7,57 +7,37 @@
             <v-row align="center" dense>
               <v-col cols="3">
                 <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
+                  icon="mdi-calculator"
+                  iconColor="deep-orange darken-4"
+                  label="计算器"
                 />
               </v-col>
               <v-col cols="3">
                 <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
+                  icon="mdi-calendar-month"
+                  iconColor="brown darken-1"
+                  label="日历"
                 />
               </v-col>
               <v-col cols="3">
                 <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
+                  icon="mdi-cog"
+                  iconColor="blue-grey darken-4"
+                  label="设置"
                 />
               </v-col>
               <v-col cols="3">
                 <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
-                />
-              </v-col>
-            </v-row>
-          </v-container>
-        </swiper-slide>
-
-        <swiper-slide class="desktop-swiper-item">
-          <v-container>
-            <v-row align="center" dense>
-              <v-col cols="3">
-                <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
+                  icon="mdi-email"
+                  iconColor="blue"
+                  label="邮件"
                 />
               </v-col>
               <v-col cols="3">
                 <desktop-icon 
-                  icon="mdi-phone-dial"
+                  icon="mdi-wechat"
                   iconColor="success"
-                />
-              </v-col>
-              <v-col cols="3">
-                <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
-                />
-              </v-col>
-              <v-col cols="3">
-                <desktop-icon 
-                  icon="mdi-phone-dial"
-                  iconColor="success"
+                  label="微信"
                 />
               </v-col>
             </v-row>

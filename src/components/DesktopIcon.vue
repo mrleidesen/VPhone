@@ -1,8 +1,8 @@
 <template>
-  <div class="desk-icon">
+  <div class="w-full h-full rounded-lg flex flex-col items-center justify-center overflow-hidden">
     <div 
       v-if="icon"
-      class="desk-icon-img"
+      class="w-14 h-14 rounded overflow-hidden bg-white bg-opacity-20 flex justify-center items-center"
     >
       <v-icon
         :color="iconColor"
@@ -11,14 +11,14 @@
     </div>
     <div 
       v-else
-      class="desk-icon-img"
+      class="w-14 h-14 rounded overflow-hidden bg-white bg-opacity-20 flex justify-center items-center"
     >
-      <img :src="img" alt="icon">
+      <img class="w-3/4 h-3/4 object-contain" :src="img" alt="icon">
     </div>
 
     <span 
       v-show="label" 
-      class="desk-icon-label"
+      class="mt-1 text-xs font-medium text-gray-700"
     >
       {{ label }}
     </span>
