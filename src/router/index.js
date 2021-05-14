@@ -10,6 +10,11 @@ const routes = [
     name: 'Desktop',
     component: Desktop
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/Settings.vue')
+  }
 ]
 
 const router = new VueRouter({

@@ -20,11 +20,13 @@
                 />
               </v-col>
               <v-col cols="3">
-                <desktop-icon 
-                  icon="mdi-cog"
-                  iconColor="blue-grey darken-4"
-                  label="设置"
-                />
+                <router-link to="/settings">
+                  <desktop-icon 
+                    icon="mdi-cog"
+                    iconColor="blue-grey darken-4"
+                    label="设置"
+                  />
+                </router-link>
               </v-col>
               <v-col cols="3">
                 <desktop-icon 

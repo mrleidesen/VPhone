@@ -1,8 +1,8 @@
 <template>
-  <v-app>
-    <system-bar></system-bar>
+  <v-app class="h-screen">
+    <system-bar @changeBlur="onChangeBlur"></system-bar>
 
-    <v-main :class="{'isDesktop': isDesktop}">
+    <v-main class="filter h-full overflow-hidden" :class="{'isDesktop': isDesktop, 'blur': isBlur}">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -18,13 +18,20 @@ export default {
   },
 
   data: () => ({
-    isDesktop: true
+    isDesktop: true,
+    isBlur: false
   }),
 
   watch: {
     $route(newVal) {
       this.isDesktop = (newVal.name === 'Desktop')
     }
+  },
+
+  methods: {
+    onChangeBlur(val) {
+      this.isBlur = val
+    },
   },
 }
 </script>

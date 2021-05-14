@@ -145,6 +145,8 @@ export default {
     onTouchMove(e) {
       this.isDragging = true
       this.isDown = false
+      this.$emit('changeBlur', true)
+      
       const { offset } = this
       const maxHeight = document.body.offsetHeight - 25
       const touchEndChangeOffset = e.touchstartY - e.touchmoveY
@@ -173,13 +175,16 @@ export default {
         this.offset = maxHeight
         this.lastEndOffset = maxHeight
         this.isDown = true
+        this.$emit('changeBlur', true)
       } else if (e.touchstartY - e.touchendY >= autoChangeMaxOffset) {
         this.offset = 0
         this.lastEndOffset = 0
         this.isDown = false
+        this.$emit('changeBlur', false)
       } else {
         this.offset = this.lastEndOffset
         this.isDown = this.lastEndOffset === maxHeight
+        this.$emit('changeBlur', this.lastEndOffset === maxHeight)
       }
     },
 
