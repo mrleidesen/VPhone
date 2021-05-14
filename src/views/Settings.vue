@@ -43,11 +43,7 @@ export default {
       { text: '定位服务', icon: 'mdi-map-marker', color: 'gray' },
       { text: '亮度', icon: 'mdi-brightness-6', color: 'orange' },
       { text: '声音和震动', icon: 'mdi-volume-high', color: 'blue' },
-      { text: '通知和状态栏', icon: 'mdi-bell-outline', color: 'orange' },
       { text: '应用管理', icon: 'mdi-android', color: 'teal' },
-      { text: '电量管理', icon: 'mdi-battery-40', color: 'green darken-4' },
-      { text: '实验室', icon: 'mdi-bottle-tonic-outline', color: 'red' },
-      { text: '语言和时间', icon: 'mdi-earth', color: 'blue' },
     ],
   })
 }

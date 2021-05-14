@@ -7,7 +7,7 @@
     fixed
     class="system-bar"
   >
-    <span class="font-medium">{{ formatTime }} {{maxOffset}}</span>
+    <span class="font-medium">{{ formatTime }}</span>
 
     <v-spacer></v-spacer>
 
