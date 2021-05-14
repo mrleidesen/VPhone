@@ -43,5 +43,6 @@ export default {
 
 html {
   overflow-y: auto !important;
+  overscroll-behavior: none;
 }
 </style>

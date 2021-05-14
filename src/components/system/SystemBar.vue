@@ -7,7 +7,7 @@
     fixed
     class="system-bar"
   >
-    <span class="font-medium">{{ formatTime }}</span>
+    <span class="font-medium">{{ formatTime }} {{maxOffset}}</span>
 
     <v-spacer></v-spacer>
 
@@ -21,7 +21,7 @@
         end: onTouchEnd
       }"
       class="system-bar-mask"
-      :class="{'system-bar-mask--dragging': isDragging, 'system-bar-mask--active': isDown}"
+      :class="{'system-bar-mask--dragging': isDragging, 'system-bar-mask--active': isDone}"
       :style="`transform: translateY(${offset}px)`"
     >
       <div class="system-bar-wrapper">
@@ -71,9 +71,11 @@ export default {
     return {
       formatTime: dayjs().format('HH:mm'),
       timer: null,
-      offset: 0,
+      offset: 10,
+      minOffset: 10,
+      maxOffset: 666,
       isDragging: false,
-      isDown: false,
+      isDone: false,
       lastEndOffset: 0,
       iconActive: [1, 2, 6],
       icons: [
@@ -125,6 +127,10 @@ export default {
     this.initTimer()
   },
 
+  mounted() {
+    this.maxOffset = document.body.offsetHeight
+  },
+
   methods: {
     initTimer() {
       if (this.timer) {
@@ -144,46 +150,46 @@ export default {
 
     onTouchMove(e) {
       this.isDragging = true
-      this.isDown = false
+      this.isDone = false
       this.$emit('changeBlur', true)
       
-      const { offset } = this
-      const maxHeight = document.body.offsetHeight - 25
+      const { offset, minOffset, maxOffset, lastEndOffset } = this
+      const maxHeight = maxOffset - 25
       const touchEndChangeOffset = e.touchstartY - e.touchmoveY
-
+      
       if (touchEndChangeOffset < 0) {
         // down
-        if (offset < maxHeight) {
-          this.offset = e.touchmoveY
-        } else {
-          this.offset = maxHeight
+        if (lastEndOffset !== maxHeight) {
+          this.offset = e.touchmoveY > maxHeight ? maxHeight : e.touchmoveY
         }
       } else {
         // up
         if (offset > 0) {
-          this.offset = maxHeight - touchEndChangeOffset
+          const minus = maxHeight - touchEndChangeOffset
+          this.offset = minus < minOffset ? minOffset : minus
         }
       }
     },
     onTouchEnd(e) {
       this.isDragging = false
-      const maxHeight = document.body.offsetHeight - 25
+      const { minOffset, maxOffset } = this
+      const maxHeight = maxOffset - 25
       const touchEndChangeOffset = e.touchstartY - e.touchendY
       const autoChangeMaxOffset = 70
 
       if (touchEndChangeOffset <= -autoChangeMaxOffset) {
         this.offset = maxHeight
         this.lastEndOffset = maxHeight
-        this.isDown = true
+        this.isDone = true
         this.$emit('changeBlur', true)
       } else if (e.touchstartY - e.touchendY >= autoChangeMaxOffset) {
-        this.offset = 0
-        this.lastEndOffset = 0
-        this.isDown = false
+        this.offset = minOffset
+        this.lastEndOffset = minOffset
+        this.isDone = false
         this.$emit('changeBlur', false)
       } else {
         this.offset = this.lastEndOffset
-        this.isDown = this.lastEndOffset === maxHeight
+        this.isDone = this.lastEndOffset === maxHeight
         this.$emit('changeBlur', this.lastEndOffset === maxHeight)
       }
     },

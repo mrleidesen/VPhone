@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full overflow-auto">
+  <div class="w-full h-full overflow-auto overscroll-none">
     <v-container>
       <div class="w-full h-9 flex items-center justify-between">
         <span class="text-xl font-semibold text-gray-700">设置</span>

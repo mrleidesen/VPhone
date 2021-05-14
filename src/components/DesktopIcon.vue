@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full rounded-lg flex flex-col items-center justify-center overflow-hidden">
+  <div class="w-full h-full rounded-lg flex flex-col items-center justify-center overflow-hidden select-none">
     <div 
       v-if="icon"
       class="w-14 h-14 rounded overflow-hidden bg-white bg-opacity-20 flex justify-center items-center"
