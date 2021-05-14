@@ -76,7 +76,7 @@ export default {
       maxOffset: 666,
       isDragging: false,
       isDone: false,
-      lastEndOffset: 0,
+      lastEndOffset: 10,
       iconActive: [1, 2, 6],
       icons: [
         {
@@ -164,7 +164,7 @@ export default {
         }
       } else {
         // up
-        if (offset > 0) {
+        if (offset > 0 && lastEndOffset !== minOffset) {
           const minus = maxHeight - touchEndChangeOffset
           this.offset = minus < minOffset ? minOffset : minus
         }
