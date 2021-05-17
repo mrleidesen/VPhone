@@ -128,7 +128,9 @@ export default {
   },
 
   mounted() {
-    this.maxOffset = document.body.offsetHeight
+    window.addEventListener('resize', () => {
+      this.maxOffset = document.body.offsetHeight
+    })
   },
 
   methods: {
